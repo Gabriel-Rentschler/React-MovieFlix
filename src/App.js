@@ -1,24 +1,22 @@
 import {useEffect, useState} from 'react'
 import { MovieCard } from './components/MovieCard'
+import {OMDbKey} from './config/keys.js'
 
 import './App.css'
 import SearchIcon from './search.svg'
 
-//3602421b - OMDb API KEY
-
-const API_URL = 'http://www.omdbapi.com?apikey=3602421b'
-
 const App = () => {
+  const API_URL = 'http://www.omdbapi.com?apikey=' + OMDbKey;
 
   const [movies, setMovies] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
 
   const searchMovie = async (title) => {
+
     const response = await fetch(`${API_URL}&s=${title}`)
 
     const data = await response.json()
 
-    console.log(data.Search)
     setMovies(data.Search)
   }
 
