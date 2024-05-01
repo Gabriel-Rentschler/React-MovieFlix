@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PlusIcon from '../resources/plus.svg'
+import CheckIcon from '../resources/check.svg'
 
 export const MovieCard = ({movie}) => {
+    var [addMovieClicked, setAddMovieClicked] = useState(false);
     const moviePlaceholder = 'https://via.placeholder.com/400';
+
+    function addMovie() {
+
+    }
 
     return (
         <div className="movie">
@@ -15,6 +22,10 @@ export const MovieCard = ({movie}) => {
           <div>
             <span>{movie.Type}</span>
             <h3>{movie.Title}</h3>
+            <div className="addMovieDiv">
+              <button onClick={() => {addMovie(); setAddMovieClicked(true)}}><img src={!addMovieClicked ? PlusIcon : CheckIcon} alt="Add Movie to List" /></button>
+            </div>
+            
           </div>
           
         </div>

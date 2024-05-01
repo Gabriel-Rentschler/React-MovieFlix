@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import SearchIcon from '../search.svg'
+import SearchIcon from '../resources/search.svg'
 import {OMDbKey} from '../config/keys.js'
 import { MovieCard } from './MovieCard'
 

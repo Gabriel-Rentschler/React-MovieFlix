@@ -124,6 +124,15 @@
   left: 0;
 }
 
+.addMovieDiv {
+  display: flex;
+  justify-content: end;
+}
+.addMovieDiv button {
+  margin: 10%;
+  background-color: transparent;
+}
+
 .movie div:nth-of-type(3) span {
   font-family: "Raleway", sans-serif;
   text-transform: uppercase;
