@@ -1,10 +1,5 @@
-export const SideMenu = () => {
-    return (
+export const SideMenu = (props) => {
 
-        <div className="sideMenu">
-            <button className='menuButton'> Search Movies</button>
-            <br/><br/>
-            <button className='menuButton'> Movie List</button>
-        </div>
-    );
 }
+
+//SEE WHAT IS REACT PORTALS
