@@ -21,7 +21,8 @@ export const MoviesPage = () => {
   }
 
   useEffect(() => {
-   searchMovie('Batman') 
+   searchMovie('Batman');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

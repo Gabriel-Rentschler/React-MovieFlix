@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react';
-import {OMDbKey} from '../config/keys.js'
-import { MovieCard } from './MovieCard'
+import { useEffect } from 'react';
 
 
 
