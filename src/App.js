@@ -43,7 +43,7 @@ const App = () => {
       </div>
       <div className="content">
       
-        <h1>MovieFlix</h1>
+        <h1>MovieLister</h1>
         {page === 'search' && ( <MoviesPage />)}
         {page === 'list' && ( <MovieListPage />)}
       </div>
