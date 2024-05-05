@@ -31,15 +31,18 @@ const App = () => {
     <>
     <div className='app'>
       <div className="sideMenu">
+        <div>
         {currentUser !== null ? 
-          <button onClick={() => {Logout()}}>Log Out</button> : 
-          <button onClick={() => {Login()}}>Log In With Google</button>
+          <button className='sideMenuBtn' onClick={() => {Logout()}}>Log Out</button> : 
+          <button className='sideMenuBtn' onClick={() => {Login()}}>Log In With Google</button>
         }
-        
-        <br/><br/>
-        <button onClick={() => setPage('search')} className='menuButton'> Search Movies</button>
-        <br/><br/>
-        <button onClick={() => setPage('list')} className='menuButton'> Movie List</button>
+        </div>
+        <div>
+        <button className='sideMenuBtn' onClick={() => setPage('search')}> Search Movies</button>
+        </div>
+        <div>
+        <button className='sideMenuBtn' onClick={() => setPage('list')}> Movie List</button>
+        </div>
       </div>
       <div className="content">
       

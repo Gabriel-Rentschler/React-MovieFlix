@@ -31,9 +31,27 @@ body {
 
 .sideMenu {
   width: 25%;
-  justify-content: left;
-  align-items: left;
+  justify-content: center;
   background-color: #101213;
+}
+
+.sideMenu div {
+  height: 3%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 10px;
+  border-color: rgb(252, 196, 25);
+  
+}
+
+.sideMenuBtn {
+  width: 100%;
+  background-color: #1d2022;
+  color: aliceblue;
+}
+
+.sideMenuBtn:hover {
+  background-color: #191b1d;
 }
 
 h1 {
