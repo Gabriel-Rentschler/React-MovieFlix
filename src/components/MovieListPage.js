@@ -1,6 +1,6 @@
 import { getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { _MovieListTable } from '../config/keysConfig';
+import { _MovieListTable, auth } from '../config/keysConfig';
 import { MovieCard } from './MovieCard';
 
 
@@ -15,17 +15,19 @@ export const MovieListPage = () => {
 
   async function getMovieList() {
     try {
+      var isUser = true;
       const data = await getDocs(_MovieListTable);
-      const movieList = data.docs.map((doc) => ({
+      const movieList = data.docs.map((doc) => (doc.data().UserId === auth.currentUser?.uid ? {
         ...doc.data(),
         id: doc.id
-      }));
-      setMovies(movieList);
+      } : isUser = false));
+
+      if (isUser)
+        setMovies(movieList);
     } catch (e) {
       console.error(e);
     }
   }
-
   return (
     <>
       {movies?.length > 0
