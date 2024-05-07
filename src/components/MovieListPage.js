@@ -15,15 +15,18 @@ export const MovieListPage = () => {
 
   async function getMovieList() {
     try {
-      var isUser = true;
       const data = await getDocs(_MovieListTable);
-      const movieList = data.docs.map((doc) => (doc.data().UserId === auth.currentUser?.uid ? {
-        ...doc.data(),
-        id: doc.id
-      } : isUser = false));
-
-      if (isUser)
+      var movieList = [];
+      data.docs.forEach(doc => {
+        console.log(doc.data().UserId)
+        if (doc.data().UserId === auth.currentUser?.uid) {
+          movieList.push({
+            ...doc.data(),
+            id: doc.id
+          });
+        }
         setMovies(movieList);
+      });
     } catch (e) {
       console.error(e);
     }
