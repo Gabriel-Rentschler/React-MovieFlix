@@ -1,24 +1,24 @@
 import { getDocs } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { _MovieListTable, auth } from '../config/keysConfig';
-import { MovieCard } from './MovieCard';
+import { MovieListCard } from './MovieListCard';
 
 
 
 export const MovieListPage = () => {
+  var [updateList, setUpdateList] = useState(false);
   var [movies, setMovies] = useState([]);
 
 
   useEffect(() => {
     getMovieList();
-  }, [])
+  }, [updateList])
 
   async function getMovieList() {
     try {
       const data = await getDocs(_MovieListTable);
       var movieList = [];
       data.docs.forEach(doc => {
-        console.log(doc.data().UserId)
         if (doc.data().UserId === auth.currentUser?.uid) {
           movieList.push({
             ...doc.data(),
@@ -36,7 +36,7 @@ export const MovieListPage = () => {
       {movies?.length > 0
         ? (
           <div className="container">
-            {movies.map((movie) => <MovieCard movie={movie}/>)}
+            {movies.map((movie) => <MovieListCard movie={movie} setUpdateList={setUpdateList} updateList={updateList}/>)}
           </div>
         ) : (
           <div className="container">
