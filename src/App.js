@@ -1,18 +1,19 @@
-import { useState} from 'react'
+import { useEffect, useState} from 'react'
 import { MoviesPage } from './components/MoviesPage'
 import { MovieListPage } from './components/MovieListPage'
-import './App.css'
 import { auth, googleProvider } from './config/keysConfig'
 import { signInWithPopup, signOut } from 'firebase/auth'
 
-const App = () => {
+import './App.css'
+
+function App() {
   var [page, setPage] = useState('search');
-  var [currentUser, setCurrentUser] = useState(auth.currentUser?.uid);
+  var [currentUser, setCurrentUser] = useState(null);
 
   async function Login () {
     try {
-        await signInWithPopup(auth, googleProvider)
-        .then(setCurrentUser(auth.currentUser?.uid));
+        var result = await signInWithPopup(auth, googleProvider)
+        setCurrentUser(result.user.id)
     } catch (e) {
         console.error(e);
     }
@@ -45,10 +46,20 @@ const App = () => {
         </div>
       </div>
       <div className="content">
-      
+        
         <h1>MovieLister</h1>
-        {page === 'search' && ( <MoviesPage />)}
-        {page === 'list' && ( <MovieListPage />)}
+        {currentUser !== null || currentUser !== undefined ? <>
+          {page === 'search' && ( <MoviesPage currentUser={currentUser}/>)}
+          {page === 'list' && ( <MovieListPage />)}
+        </>
+        :  
+        <>
+          {page === 'search' && ( <MoviesPage currentUser={currentUser}/>)}
+          {page === 'list' && ( <MovieListPage />)}
+        </>
+        }
+        
+        
       </div>
     </div>
     </>

@@ -1,12 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PlusIcon from '../resources/plus.svg'
 import CheckIcon from '../resources/check.svg'
-import { addDoc } from 'firebase/firestore'
+import { addDoc, getDocs } from 'firebase/firestore'
 import { _MovieListTable, auth } from '../config/keysConfig';
 
-export const MovieCard = ({movie}) => {
+export const MovieCard = ({movie, currentUser}) => {
     var [addMovieClicked, setAddMovieClicked] = useState(false);
     const moviePlaceholder = 'https://via.placeholder.com/400';
+
+    
+
+    async function isMovieAdded() {
+      console.log(currentUser);
+      try {
+        if (auth.currentUser !== null) {
+          const data = await getDocs(_MovieListTable);
+          
+          data.docs.forEach(doc => {
+            if (doc.data().MovieId === movie.imdbID && doc.data().UserId === currentUser) {
+              setAddMovieClicked(true);
+            }
+          });
+        }
+      } catch (e) {
+        
+      }
+    }
+    
+    useEffect(() => {
+      isMovieAdded();
+    }, [currentUser])
 
     async function addMovie() {
       try {
@@ -17,7 +40,8 @@ export const MovieCard = ({movie}) => {
             Type: movie.Type,
             Watched: false,
             Year: movie.Year,
-            UserId: auth.currentUser?.uid
+            UserId: auth.currentUser?.uid,
+            MovieId: movie.imdbID
           }).finally(console.log("Movie Added!"));
 
           return;
