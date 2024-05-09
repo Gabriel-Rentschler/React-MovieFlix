@@ -1,4 +1,4 @@
-import { useEffect, useState} from 'react'
+import { useState} from 'react'
 import { MoviesPage } from './components/MoviesPage'
 import { MovieListPage } from './components/MovieListPage'
 import { auth, googleProvider } from './config/keysConfig'
@@ -8,7 +8,7 @@ import './App.css'
 
 function App() {
   var [page, setPage] = useState('search');
-  var [currentUser, setCurrentUser] = useState(null);
+  var [currentUser, setCurrentUser] = useState(auth.currentUser?.uid);
 
   async function Login () {
     try {
@@ -48,7 +48,7 @@ function App() {
       <div className="content">
         
         <h1>MovieLister</h1>
-        {currentUser !== null || currentUser !== undefined ? <>
+        {currentUser !== null ? <>
           {page === 'search' && ( <MoviesPage currentUser={currentUser}/>)}
           {page === 'list' && ( <MovieListPage />)}
         </>

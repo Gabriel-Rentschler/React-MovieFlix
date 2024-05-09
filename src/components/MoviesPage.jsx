@@ -10,6 +10,7 @@ export const MoviesPage = (props) => {
 
   var [movies, setMovies] = useState([])
   var [searchTerm, setSearchTerm] = useState("")
+  var [refreshCards, setRefreshCards] = useState(false);
 
   const searchMovie = async (title) => {
 
@@ -18,10 +19,11 @@ export const MoviesPage = (props) => {
     const data = await response.json()
     
     setMovies(data.Search);
+    setRefreshCards(false);
   }
   console.log(props.currentUser)
   useEffect(() => {
-   searchMovie('Batman');
+   //searchMovie('Batman');
   
   }, [])
 
@@ -37,13 +39,13 @@ export const MoviesPage = (props) => {
         <img 
           src={SearchIcon} 
           alt="search" 
-          onClick={() => {searchMovie(searchTerm)}}
+          onClick={() => {searchMovie(searchTerm); setRefreshCards(true)}}
         />
       </div>
       {movies?.length > 0
         ? (
           <div className="container">
-            {movies.map((movie) => <MovieCard movie={movie} currentUser={props.currentUser}/>)}
+            {refreshCards ? null : movies.map((movie) => <MovieCard movie={movie}/>)}
           </div>
         ) : (
           <div className="container">

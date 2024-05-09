@@ -15,10 +15,10 @@ export const MovieCard = ({movie, currentUser}) => {
       try {
         if (auth.currentUser !== null) {
           const data = await getDocs(_MovieListTable);
-          
           data.docs.forEach(doc => {
-            if (doc.data().MovieId === movie.imdbID && doc.data().UserId === currentUser) {
+            if (doc.data().MovieId === movie.imdbID && doc.data().UserId === auth.currentUser?.uid) {
               setAddMovieClicked(true);
+              return;
             }
           });
         }
@@ -29,7 +29,7 @@ export const MovieCard = ({movie, currentUser}) => {
     
     useEffect(() => {
       isMovieAdded();
-    }, [currentUser])
+    }, [])
 
     async function addMovie() {
       try {
@@ -43,7 +43,7 @@ export const MovieCard = ({movie, currentUser}) => {
             UserId: auth.currentUser?.uid,
             MovieId: movie.imdbID
           }).finally(console.log("Movie Added!"));
-
+          setAddMovieClicked(true)
           return;
         }
         alert("Need to be logged in to add movies to your list!")
@@ -66,7 +66,7 @@ export const MovieCard = ({movie, currentUser}) => {
             <h3>{movie.Title}</h3>
             <div className="addMovieDiv">
               {
-                !addMovieClicked ? <button onClick={() => {addMovie(); setAddMovieClicked(true)}}><img src={PlusIcon} alt="Add Movie to List" /></button>
+                !addMovieClicked ? <button onClick={() => {addMovie()}}><img src={PlusIcon} alt="Add Movie to List" /></button>
                 : <button><img src={CheckIcon} alt="Movie Added to List" /></button>
               }
               
