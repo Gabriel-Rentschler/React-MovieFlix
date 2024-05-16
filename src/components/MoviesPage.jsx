@@ -6,7 +6,7 @@ import { MovieCard } from './MovieCard'
 import './MoviesPage.css'
 
 export const MoviesPage = (props) => {
-  const API_URL = 'http://www.omdbapi.com?apikey=' + OMDbKey;
+  const API_URL = 'https://www.omdbapi.com?apikey=' + OMDbKey;
 
   var [movies, setMovies] = useState([])
   var [searchTerm, setSearchTerm] = useState("")
