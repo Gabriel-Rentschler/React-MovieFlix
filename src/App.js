@@ -47,7 +47,7 @@ function App() {
       </div>
       <div className="content">
         
-        <h1>MovieLister</h1>
+        <h1>MovieFlix</h1>
         {currentUser !== null ? <>
           {page === 'search' && ( <MoviesPage currentUser={currentUser}/>)}
           {page === 'list' && ( <MovieListPage />)}
