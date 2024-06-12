@@ -1,5 +1,5 @@
 import DeleteIcon from '../resources/delete.svg'
-import { deleteDoc, doc } from 'firebase/firestore'
+import { deleteDoc, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import { db } from '../config/keysConfig';
 
 export const MovieListCard = ({movie, setUpdateList, updateList}) => {
@@ -9,6 +9,27 @@ export const MovieListCard = ({movie, setUpdateList, updateList}) => {
       try {
         const movieRef = doc(db, "MovieList", movieId);
         await deleteDoc(movieRef).finally(() => {setUpdateList(!updateList)});
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function watchedMovie(movieId) {
+      try {
+        const movieRef = doc(db, "MovieList", movieId);
+        const movie = await getDoc(movieRef);
+        const movieData = movie.data();
+        await setDoc(doc(db, "MovieList", movieId), {
+          MovieId: movieData.MovieId,
+          Poster: movieData.Poster,
+          Title: movieData.Title,
+          Type: movieData.Type,
+          UserId: movieData.UserId,
+          Watched: !movieData.Watched,
+          Year: movieData.Year
+        })
+        
+        console.log(movieData);
       } catch (e) {
         console.error(e);
       }
@@ -27,6 +48,7 @@ export const MovieListCard = ({movie, setUpdateList, updateList}) => {
             <span>{movie.Type}</span>
             <h3>{movie.Title}</h3>
             <div className="addMovieDiv">
+              <button onClick={() => {watchedMovie(movie.id)}}>Watched</button>
               <button onClick={() => {deleteMovie(movie.id)}}><img src={DeleteIcon} alt="Delete Movie From List" /></button>
             </div>
             

@@ -12,8 +12,8 @@ function App() {
 
   async function Login () {
     try {
-        var result = await signInWithPopup(auth, googleProvider)
-        setCurrentUser(result.user.id)
+        var result = await signInWithPopup(auth, googleProvider);
+        setCurrentUser(result.user.id);
     } catch (e) {
         console.error(e);
     }
