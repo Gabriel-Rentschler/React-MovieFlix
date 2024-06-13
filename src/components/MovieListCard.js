@@ -1,5 +1,7 @@
 import DeleteIcon from '../resources/delete.svg'
-import { deleteDoc, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
+import OpenEyeIcon from '../resources/open_eye.svg'
+import CloseEyeIcon from '../resources/closed_eye.svg'
+import { deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore'
 import { db } from '../config/keysConfig';
 
 export const MovieListCard = ({movie, setUpdateList, updateList}) => {
@@ -48,7 +50,7 @@ export const MovieListCard = ({movie, setUpdateList, updateList}) => {
             <span>{movie.Type}</span>
             <h3>{movie.Title}</h3>
             <div className="addMovieDiv">
-              <button onClick={() => {watchedMovie(movie.id)}}>Watched</button>
+              <button onClick={() => {watchedMovie(movie.id)}}><img src={movie.Watched ? CloseEyeIcon : OpenEyeIcon } alt="Delete Movie From List" /></button>
               <button onClick={() => {deleteMovie(movie.id)}}><img src={DeleteIcon} alt="Delete Movie From List" /></button>
             </div>
             
